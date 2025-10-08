@@ -126,82 +126,82 @@
     })
 
     const handleDragStart = (event: DragEvent): void => {
-        if (event.dataTransfer) {
-            event.dataTransfer.effectAllowed = 'move'
-            event.dataTransfer.setData('text/plain', BEE_DATA)
-            draggedBee.value = BEE_DATA
-        }
+        // if (event.dataTransfer) {
+        //     event.dataTransfer.effectAllowed = 'move'
+        //     event.dataTransfer.setData('text/plain', BEE_DATA)
+        //     draggedBee.value = BEE_DATA
+        // }
     }
 
     const handleDragEnd = (): void => {
-        draggedBee.value = null
+        // draggedBee.value = null
     }
 
     const handleDragOver = (event: DragEvent): void => {
-        event.preventDefault()
-        if (event.dataTransfer) {
-            event.dataTransfer.dropEffect = 'move'
-        }
+        // event.preventDefault()
+        // if (event.dataTransfer) {
+        //     event.dataTransfer.dropEffect = 'move'
+        // }
     }
 
     const handleDrop = (event: DragEvent, frameColor: FrameColor): void => {
-        event.preventDefault()
-        if (event.dataTransfer) {
-            const data = event.dataTransfer.getData('text/plain')
-            if (data === BEE_DATA) {
-                setTimeout(() => {
-                    beeInFrame.value = frameColor
-                    emit('beeDropped', frameColor)
-                }, ANIMATION_DELAYS.BEE_DROP)
-            }
-        }
+        // event.preventDefault()
+        // if (event.dataTransfer) {
+        //     const data = event.dataTransfer.getData('text/plain')
+        //     if (data === BEE_DATA) {
+        //         setTimeout(() => {
+        //             beeInFrame.value = frameColor
+        //             emit('beeDropped', frameColor)
+        //         }, ANIMATION_DELAYS.BEE_DROP)
+        //     }
+        // }
     }
 
     const startDrag = (position: Position, element: HTMLElement): void => {
-        if (beeInFrame.value) return
+        // if (beeInFrame.value) return
         
-        dragStartPosition.value = position
-        currentDragPosition.value = position
-        isDragging.value = true
-        draggedBee.value = BEE_DATA
-        draggedElement.value = element
+        // dragStartPosition.value = position
+        // currentDragPosition.value = position
+        // isDragging.value = true
+        // draggedBee.value = BEE_DATA
+        // draggedElement.value = element
         
-        isHandVisible.value = false
-        animationPhase.value = 'hidden'
+        // isHandVisible.value = false
+        // animationPhase.value = 'hidden'
     }
 
     const updateDragPosition = (position: Position): void => {
-        if (!isDragging.value) return
+        // if (!isDragging.value) return
         
-        currentDragPosition.value = position
+        // currentDragPosition.value = position
         
-        if (draggedElement.value) {
-            const offsetX = position.x - dragStartPosition.value.x
-            const offsetY = position.y - dragStartPosition.value.y
+        // if (draggedElement.value) {
+        //     const offsetX = position.x - dragStartPosition.value.x
+        //     const offsetY = position.y - dragStartPosition.value.y
             
-            draggedElement.value.style.transform = `translate(${offsetX}px, ${offsetY}px) translateY(-50%) scale(1.1)`
-        }
+        //     draggedElement.value.style.transform = `translate(${offsetX}px, ${offsetY}px) translateY(-50%) scale(1.1)`
+        // }
         
-        const frameColor = getFrameAtPosition(position.x, position.y)
-        dropZone.value = frameColor
+        // const frameColor = getFrameAtPosition(position.x, position.y)
+        // dropZone.value = frameColor
     }
 
     const endDrag = (): void => {
-        if (!isDragging.value) return
+        // if (!isDragging.value) return
         
-        if (dropZone.value) {
-            beeInFrame.value = dropZone.value
-            emit('beeDropped', dropZone.value)
-        }
+        // if (dropZone.value) {
+        //     beeInFrame.value = dropZone.value
+        //     emit('beeDropped', dropZone.value)
+        // }
         
-        isDragging.value = false
-        draggedBee.value = null
-        dropZone.value = null
+        // isDragging.value = false
+        // draggedBee.value = null
+        // dropZone.value = null
         
-        if (draggedElement.value) {
-            draggedElement.value.style.transform = 'translateY(-50%)'
-        }
-        draggedElement.value = null
+        // if (draggedElement.value) {
+        //     draggedElement.value.style.transform = 'translateY(-50%)'
+        // }
+        // draggedElement.value = null
     }
 
     const handleTouchStart = (event: TouchEvent): void => {

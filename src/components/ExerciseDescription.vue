@@ -55,7 +55,7 @@
     }
 
     onMounted((): void => {
-        initializeAudio()
+        // initializeAudio()
     })
 
     onUnmounted((): void => {
