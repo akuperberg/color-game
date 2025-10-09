@@ -13,7 +13,7 @@
         src: ['/src/assets/sounds/instrukce.mp3'],
         volume: 1,
         preload: true
-    } as const
+    }
 
     const emit = defineEmits<{
         instructionPlayed: []
@@ -74,7 +74,7 @@
                 <HandPointer :handPulsating="true" />
             </div>
         </div>
-        <p class="exercise-description-text">Přetáhni včelku do žlutého rámečku</p>
+        <p class="exercise-description-text">Place the butterfly into the yellow frame</p>
     </div>
 </template>
 

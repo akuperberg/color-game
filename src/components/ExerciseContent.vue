@@ -16,9 +16,9 @@
         HAND_MOVING: 3500,
         HAND_RESET: 800,
         BEE_DROP: 50
-    } as const
+    }
 
-    const BEE_DATA = 'bee' as const
+    const BEE_DATA = 'bee'
 
     const props = withDefaults(defineProps<Props>(), {
         evaluationResult: null
@@ -64,11 +64,11 @@
     }
 
     const resetBeeState = (): void => {
-        beeInFrame.value = null
-        draggedBee.value = null
-        isHandVisible.value = false
-        animationPhase.value = 'hidden'
-        emit('beeReset')
+        // beeInFrame.value = null
+        // draggedBee.value = null
+        // isHandVisible.value = false
+        // animationPhase.value = 'hidden'
+        // emit('beeReset')
     }
 
     const startHandAnimation = (): void => {
@@ -205,33 +205,33 @@
     }
 
     const handleTouchStart = (event: TouchEvent): void => {
-        const touch = event.touches[0]
-        startDrag({ x: touch.clientX, y: touch.clientY }, event.target as HTMLElement)
-        event.preventDefault()
+        // const touch = event.touches[0]
+        // startDrag({ x: touch.clientX, y: touch.clientY }, event.target as HTMLElement)
+        // event.preventDefault()
     }
 
     const handleTouchMove = (event: TouchEvent): void => {
-        const touch = event.touches[0]
-        updateDragPosition({ x: touch.clientX, y: touch.clientY })
-        event.preventDefault()
+        // const touch = event.touches[0]
+        // updateDragPosition({ x: touch.clientX, y: touch.clientY })
+        // event.preventDefault()
     }
 
     const handleTouchEnd = (event: TouchEvent): void => {
-        endDrag()
-        event.preventDefault()
+        // endDrag()
+        // event.preventDefault()
     }
 
     const handleMouseDown = (event: MouseEvent): void => {
-        startDrag({ x: event.clientX, y: event.clientY }, event.target as HTMLElement)
-        event.preventDefault()
+        // startDrag({ x: event.clientX, y: event.clientY }, event.target as HTMLElement)
+        // event.preventDefault()
     }
 
     const handleMouseMove = (event: MouseEvent): void => {
-        updateDragPosition({ x: event.clientX, y: event.clientY })
+        // updateDragPosition({ x: event.clientX, y: event.clientY })
     }
 
     const handleMouseUp = (): void => {
-        endDrag()
+        // endDrag()
     }
 </script>
 

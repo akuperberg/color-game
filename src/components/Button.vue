@@ -17,14 +17,14 @@
         src: [],
         volume: 1,
         preload: true
-    } as const
+    }
 
     const SOUNDS = {
         SUCCESS: '/src/assets/sounds/super.mp3',
         WRONG: '/src/assets/sounds/zkus_se_jeste_zamyslet.mp3'
-    } as const
-
-    const CORRECT_FRAME_COLOR = 'yellow' as const
+    }
+    
+    const CORRECT_FRAME_COLOR = 'yellow'
 
     const props = defineProps<Props>()
 

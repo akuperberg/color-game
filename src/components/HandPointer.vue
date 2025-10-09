@@ -8,7 +8,7 @@ interface Props {
 const ANIMATION_TIMINGS = {
   HAND_VISIBLE_DURATION: 3000,
   HAND_HIDDEN_DURATION: 2000
-} as const
+}
 
 const props = withDefaults(defineProps<Props>(), {
   handPulsating: false
