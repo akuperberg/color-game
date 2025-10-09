@@ -12,11 +12,11 @@
         instructionHasPlayed.value = true
     }
 
-    const onBeeDropped = (frameColor: string): void => {
+    const onCharacterDropped = (frameColor: string): void => {
         selectedFrame.value = frameColor
     }
 
-    const onBeeReset = (): void => {
+    const onCharacterReset = (): void => {
         selectedFrame.value = null
     }
 
@@ -34,13 +34,12 @@
         <div class="exercise-container">
         <ExerciseDescription @instructionPlayed="onInstructionPlayed" />
         <div 
-            class="exercise-content-wrapper"
-            :class="{ 'show': instructionHasPlayed }"
+            class="exercise-content-wrapper show"
         >
             <ExerciseContent 
                 :evaluationResult="evaluationResult"
-                @beeDropped="onBeeDropped" 
-                @beeReset="onBeeReset"
+                @characterDropped="onCharacterDropped" 
+                @characterReset="onCharacterReset"
             />
         </div>
         <div 

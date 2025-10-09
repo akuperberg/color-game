@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
+import { PhHandPointing } from '@phosphor-icons/vue'
 
 interface Props {
   handPulsating?: boolean
@@ -64,19 +65,12 @@ onUnmounted((): void => {
 
 <template>
     <div class="hand-pointer-container">
-        <img 
-            src="../assets/icons/yellow-circle.svg" 
-            alt="Yellow circle" 
+        <div
             class="yellow-circle" 
             :class="{ 'pulsating': handPulsating }" 
-        />
-        <img 
-            v-if="isHandVisible"
-            src="../assets/icons/hand.svg" 
-            alt="Hand pointer" 
-            class="hand" 
-            :class="{ 'pulsating': handPulsating }" 
-        />
+        ></div>
+
+        <PhHandPointing :size="25" weight="fill" class="hand" color="#FFD93D" :class="{ 'pulsating': handPulsating }" />
     </div>
 </template>
 
@@ -92,6 +86,8 @@ onUnmounted((): void => {
     .yellow-circle {
         width: 40px;
         height: 40px;
+        border-radius: 50%;
+        border: 3px solid #FFD93D;
         
         &.pulsating {
             animation: pulse 1s ease-in-out infinite;

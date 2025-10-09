@@ -15,22 +15,22 @@
         HAND_START: 500,
         HAND_MOVING: 3500,
         HAND_RESET: 800,
-        BEE_DROP: 50
+        CHARACTER_DROP: 50
     }
 
-    const BEE_DATA = 'bee'
+    const CHARACTER_DATA = 'character'
 
     const props = withDefaults(defineProps<Props>(), {
         evaluationResult: null
     })
 
     const emit = defineEmits<{
-        beeDropped: [frameColor: FrameColor]
-        beeReset: []
+        characterDropped: [frameColor: FrameColor]
+        characterReset: []
     }>()
 
-    const draggedBee = ref<string | null>(null)
-    const beeInFrame = ref<FrameColor | null>(null)
+    const draggedCharacter = ref<string | null>(null)
+    const characterInFrame = ref<FrameColor | null>(null)
     const animationPhase = ref<AnimationPhase>('start')
     const isHandVisible = ref(true)
     
@@ -63,27 +63,27 @@
         return null
     }
 
-    const resetBeeState = (): void => {
-        // beeInFrame.value = null
-        // draggedBee.value = null
+    const resetCharacterState = (): void => {
+        // characterInFrame.value = null
+        // draggedCharacter.value = null
         // isHandVisible.value = false
         // animationPhase.value = 'hidden'
-        // emit('beeReset')
+        // emit('characterReset')
     }
 
     const startHandAnimation = (): void => {
-        if (beeInFrame.value) return
+        if (characterInFrame.value) return
         
         animationPhase.value = 'start'
         isHandVisible.value = true
         
         setTimeout(() => {
-            if (beeInFrame.value) return
+            if (characterInFrame.value) return
             animationPhase.value = 'moving'
         }, ANIMATION_DELAYS.HAND_START)
         
         setTimeout(() => {
-            if (beeInFrame.value) return
+            if (characterInFrame.value) return
             isHandVisible.value = false
             animationPhase.value = 'hidden'
             
@@ -95,7 +95,7 @@
 
     watch(() => props.evaluationResult, (newResult: boolean | null): void => {
         if (newResult !== null && !newResult) {
-            resetBeeState()
+            resetCharacterState()
             setTimeout(() => {
                 animationPhase.value = 'start'
                 isHandVisible.value = true
@@ -104,7 +104,7 @@
         }
     })
 
-    watch(beeInFrame, (newValue) => {
+    watch(characterInFrame, (newValue) => {
         if (newValue) {
             isHandVisible.value = false
             animationPhase.value = 'hidden'
@@ -128,13 +128,13 @@
     const handleDragStart = (event: DragEvent): void => {
         // if (event.dataTransfer) {
         //     event.dataTransfer.effectAllowed = 'move'
-        //     event.dataTransfer.setData('text/plain', BEE_DATA)
-        //     draggedBee.value = BEE_DATA
+        //     event.dataTransfer.setData('text/plain', CHARACTER_DATA)
+        //     draggedCharacter.value = CHARACTER_DATA
         // }
     }
 
     const handleDragEnd = (): void => {
-        // draggedBee.value = null
+        // draggedCharacter.value = null
     }
 
     const handleDragOver = (event: DragEvent): void => {
@@ -148,22 +148,22 @@
         // event.preventDefault()
         // if (event.dataTransfer) {
         //     const data = event.dataTransfer.getData('text/plain')
-        //     if (data === BEE_DATA) {
+        //     if (data === CHARACTER_DATA) {
         //         setTimeout(() => {
-        //             beeInFrame.value = frameColor
-        //             emit('beeDropped', frameColor)
-        //         }, ANIMATION_DELAYS.BEE_DROP)
+        //             characterInFrame.value = frameColor
+        //             emit('characterDropped', frameColor)
+        //         }, ANIMATION_DELAYS.CHARACTER_DROP)
         //     }
         // }
     }
 
     const startDrag = (position: Position, element: HTMLElement): void => {
-        // if (beeInFrame.value) return
+        // if (characterInFrame.value) return
         
         // dragStartPosition.value = position
         // currentDragPosition.value = position
         // isDragging.value = true
-        // draggedBee.value = BEE_DATA
+        // draggedCharacter.value = CHARACTER_DATA
         // draggedElement.value = element
         
         // isHandVisible.value = false
@@ -190,12 +190,12 @@
         // if (!isDragging.value) return
         
         // if (dropZone.value) {
-        //     beeInFrame.value = dropZone.value
-        //     emit('beeDropped', dropZone.value)
+        //     characterInFrame.value = dropZone.value
+        //     emit('characterDropped', dropZone.value)
         // }
         
         // isDragging.value = false
-        // draggedBee.value = null
+        // draggedCharacter.value = null
         // dropZone.value = null
         
         // if (draggedElement.value) {
@@ -239,12 +239,12 @@
     <div class="exercise-content-container">
         <div>
             <img 
-                v-if="!beeInFrame"
-                src="../assets/images/bee.svg" 
-                alt="bee" 
-                class="bee bee-original"
+                v-if="!characterInFrame"
+                src="../assets/images/butterfly.png" 
+                alt="character" 
+                class="character character-original"
                 :class="{ 
-                    'dragging': draggedBee === 'bee' || isDragging,
+                    'dragging': draggedCharacter === 'character' || isDragging,
                     'touch-dragging': isDragging
                 }"
                 draggable="true"
@@ -258,69 +258,51 @@
         </div>
         
         <div 
-            class="arrow-line"
-            :class="{ 
-                'show-arrow': animationPhase === 'moving'
-            }"
-            v-show="isHandVisible"
-        ></div>
-        
-        <div 
             class="icon-animation"
-            :class="{ 
-                'animate-to-yellow': animationPhase === 'moving'
-            }"
             v-show="isHandVisible"
         >
-            <HandPointer />
         </div>
         <div class="frames-container">
             <div 
                 class="frame blue"
                 :class="{ 
-                    'has-bee': beeInFrame === 'blue',
+                    'has-character': characterInFrame === 'blue',
                     'drop-target': dropZone === 'blue'
                 }"
-                @dragover="handleDragOver"
-                @drop="handleDrop($event, 'blue' as FrameColor)"
             >
                 <img 
-                    v-if="beeInFrame === 'blue'"
-                    src="../assets/images/bee.svg" 
-                    alt="bee in blue frame" 
-                    class="bee bee-in-frame"
+                    v-if="characterInFrame === 'blue'"
+                    src="../assets/images/butterfly.png" 
+                    alt="character in blue frame" 
+                    class="character character-in-frame"
                 />
             </div>
             <div 
                 class="frame yellow"
                 :class="{ 
-                    'has-bee': beeInFrame === 'yellow',
+                    'has-character': characterInFrame === 'yellow',
                     'drop-target': dropZone === 'yellow'
                 }"
-                @dragover="handleDragOver"
-                @drop="handleDrop($event, 'yellow' as FrameColor)"
             >
                 <img 
-                    v-if="beeInFrame === 'yellow'"
-                    src="../assets/images/bee.svg" 
-                    alt="bee in yellow frame" 
-                    class="bee bee-in-frame"
+                    v-if="characterInFrame === 'yellow'"
+                    src="../assets/images/butterfly.png" 
+                    alt="character in yellow frame" 
+                    class="character character-in-frame"
                 />
             </div>
             <div 
                 class="frame green"
                 :class="{ 
-                    'has-bee': beeInFrame === 'green',
+                    'has-character': characterInFrame === 'green',
                     'drop-target': dropZone === 'green'
                 }"
-                @dragover="handleDragOver"
-                @drop="handleDrop($event, 'green' as FrameColor)"
             >
                 <img 
-                    v-if="beeInFrame === 'green'"
-                    src="../assets/images/bee.svg" 
-                    alt="bee in green frame" 
-                    class="bee bee-in-frame"
+                    v-if="characterInFrame === 'green'"
+                    src="../assets/images/butterfly.png" 
+                    alt="character in green frame" 
+                    class="character character-in-frame"
                 />
             </div>
         </div>
@@ -351,61 +333,14 @@
             }
         }
 
-        .arrow-line {
-            position: absolute;
-            top: 50%;
-            left: clamp(-80px, -6vw, -40px);
-            width: 0;
-            height: 2px;
-            background: repeating-linear-gradient(
-                to right,
-                $dark-color 0px,
-                $dark-color 8px,
-                transparent 8px,
-                transparent 16px
-            );
-            transform: translateY(-50%);
-            transition: width 3s cubic-bezier(0.4, 0, 0.2, 1);
-            z-index: 1;
-            pointer-events: none;
-            
-            @media (max-width: 600px) {
-                left: clamp(-40px, -5vw, -20px);
-            }
-
-            @media (max-width: 400px) {
-                left: clamp(-10px, -5vw, -10px);
-            }
-            
-            &.show-arrow {
-                width: clamp(200px, 28vw, 500px);
-            }
-            
-            &::after {
-                content: '';
-                position: absolute;
-                right: -8px;
-                top: 50%;
-                transform: translateY(-50%);
-                width: 0;
-                height: 0;
-                border-left: 8px solid $dark-color;
-                border-top: 6px solid transparent;
-                border-bottom: 6px solid transparent;
-                z-index: 1;
-            }
-        }
-
-        .bee {
+        .character {
             width: clamp(60px, 15vw, 120px);
             height: auto;
         }
 
-        .bee-original {
-            cursor: grab;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        .character-original {
+            cursor: pointer;
             position: absolute;
-            left: clamp(-120px, -15vw, -120px);
             top: 50%;
             transform: translateY(-50%);
             user-select: none;
@@ -419,45 +354,25 @@
             @media (max-width: 400px) {
                 left: clamp(-30px, -10vw, -60px);
             }
-            
-            &:active {
-                cursor: grabbing;
-            }
-            
-            &.dragging {
-                opacity: 0.6;
-                transform: translateY(-50%) scale(1.1);
-                z-index: 10;
-            }
-            
-            &.touch-dragging {
-                opacity: 0.8;
-                z-index: 10;
-                transition: none;
-            }
-            
-            &.dropping {
-                opacity: 0;
-                transform: translateY(-50%) scale(0.8);
-            }
+        
         }
 
-        .bee-in-frame {
-            animation: beeAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        .character-in-frame {
+            animation: characterAppear 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
         }
 
         .frame {
-            width: clamp(80px, 20vw, 200px);
-            height: clamp(80px, 20vw, 200px);
-            border-radius: clamp(2px, 0.6vw, 6px);
-            border: clamp(1px, 0.5vw, 4px) solid;
+            width: 80px;
+            height: 80px;
+            border-radius: 2px;
+            border: 1px red solid;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             
-            &.has-bee {
+            &.has-character {
                 background-color: rgba(255, 255, 255, 0.1);
                 transform: scale(1.02);
                 box-shadow: 0 clamp(1px, 0.4vw, 4px) clamp(4px, 1.2vw, 16px) rgba(0, 0, 0, 0.15);
@@ -491,7 +406,7 @@
         }
     }
 
-    @keyframes beeAppear {
+    @keyframes characterAppear {
         0% {
             opacity: 0;
             transform: scale(0.3) rotate(-10deg);

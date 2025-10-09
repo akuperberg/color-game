@@ -2,6 +2,7 @@
     import { ref, onMounted, onUnmounted } from 'vue'
     import { Howl } from 'howler'
     import HandPointer from './HandPointer.vue'
+    import { PhSpeakerHigh } from '@phosphor-icons/vue'
 
     interface AudioConfig {
         src: string[]
@@ -67,7 +68,7 @@
     <div class="exercise-description-container">
         <div class="icon-animation">
             <div class="speaker-icon-container" @click="playInstruction">
-                <img src="../assets/icons/speaker.svg" alt="speaker" class="speaker-icon" />
+                <PhSpeakerHigh :size="20" weight="fill" color="#fff"/>
             </div>
 
             <div class="hand-pointer-component-container" v-if="!hasInstructionPlayed">
@@ -94,8 +95,8 @@
 
         .hand-pointer-component-container {
             position: absolute;
-            bottom: -2.5px;
-            right: -2.5px;
+            bottom: -2px;
+            right: -2px;
             pointer-events: none;
         }
     }
@@ -103,7 +104,7 @@
     .speaker-icon-container {
         width: 35px;
         height: 35px;
-        background-color: $blue-color;
+        background-color: #BF40BF;
         border-radius: 50%;
         display: flex;
         justify-content: center;

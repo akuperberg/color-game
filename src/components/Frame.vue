@@ -4,7 +4,7 @@
 
 <template>
     <!-- <div class="frame blue" :class="{
-        'has-bee': beeInFrame === 'blue',
+        'has-character': characterInFrame === 'blue',
         'drop-target': dropZone === 'blue'
     }" @dragover="handleDragOver" @drop="handleDrop($event, 'blue' as FrameColor)">
     </div> -->
