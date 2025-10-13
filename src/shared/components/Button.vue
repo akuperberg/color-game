@@ -1,52 +1,30 @@
 <script setup lang="ts">
-    import { ref, watch, onMounted, onUnmounted } from 'vue'
+    import { onMounted, onUnmounted } from 'vue'
     import { Howl } from 'howler'
     import HandPointer from './HandPointer.vue'
-
-    interface Props {
-        frameColor: string
-    }
-
-    interface AudioConfig {
-        src: string[]
-        volume: number
-        preload: boolean
-    }
-
-    const AUDIO_CONFIG: AudioConfig = {
-        src: [],
-        volume: 1,
-        preload: true
-    }
-
-    const SOUNDS = {
-        SUCCESS: '/src/assets/sounds/super.mp3',
-        WRONG: '/src/assets/sounds/zkus_se_jeste_zamyslet.mp3'
-    }
-    
-    const CORRECT_FRAME_COLOR = 'yellow'
-
-    const props = defineProps<Props>()
+    import { frameColorService } from '../shared/services/FrameColorService'
+    // import { SoundPaths } from '@/shared/enums/enums'
 
     const emit = defineEmits<{
         evaluationResult: [success: boolean]
     }>()
 
-    const isAnimationActive = ref(true)
     let successSound: Howl | null = null
     let wrongSound: Howl | null = null
 
-    const initializeAudio = (): void => {
-        successSound = new Howl({
-            ...AUDIO_CONFIG,
-            src: [SOUNDS.SUCCESS]
-        })
+    // const initializeAudio = (): void => {
+    //     successSound = new Howl({  
+    //         volume: 1,
+    //         preload: true,
+    //         src: [SoundPaths.SUCCESS]
+    //     })
 
-        wrongSound = new Howl({
-            ...AUDIO_CONFIG,
-            src: [SOUNDS.WRONG]
-        })
-    }
+    //     wrongSound = new Howl({
+    //         volume: 1,
+    //         preload: true,
+    //         src: [SoundPaths.WRONG]
+    //     })
+    // }
 
     const playSound = (sound: Howl | null): void => {
         if (sound && !sound.playing()) {
@@ -66,9 +44,7 @@
     }
 
     const onButtonClick = (): void => {
-        isAnimationActive.value = false
-        
-        const isSuccess = props.frameColor === CORRECT_FRAME_COLOR
+        const isSuccess = frameColorService.isCorrectFrameSelected()
         
         if (isSuccess) {
             playSound(successSound)
@@ -78,12 +54,6 @@
         
         emit('evaluationResult', isSuccess)
     }
-
-    watch(() => props.frameColor, (newFrameColor: string): void => {
-        if (newFrameColor && newFrameColor !== '') {
-            isAnimationActive.value = true
-        }
-    })
 
     onMounted((): void => {
         // initializeAudio()
@@ -99,11 +69,11 @@
         <div class="button-wrapper">
             <div class="button-container">
                 <button @click="onButtonClick">
-                    Vyhodnotit
+                    Evaluate
                 </button>
             </div>
 
-            <div class="hand-pointer-component-container" v-if="isAnimationActive">
+            <div class="hand-pointer-component-container">
                 <HandPointer :handPulsating="true" />
             </div>
         </div>

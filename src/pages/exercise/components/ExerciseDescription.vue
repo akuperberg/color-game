@@ -1,7 +1,7 @@
 <script setup lang="ts">
     import { ref, onMounted, onUnmounted } from 'vue'
     import { Howl } from 'howler'
-    import HandPointer from './HandPointer.vue'
+    import HandPointer from '@/shared/components/HandPointer.vue'
     import { PhSpeakerHigh } from '@phosphor-icons/vue'
 
     interface AudioConfig {
@@ -11,7 +11,7 @@
     }
 
     const AUDIO_CONFIG: AudioConfig = {
-        src: ['/src/assets/sounds/instrukce.mp3'],
+        src: ['/src/assets/sounds/instruction.mp3'],
         volume: 1,
         preload: true
     }
@@ -67,13 +67,13 @@
 <template>
     <div class="exercise-description-container">
         <div class="icon-animation">
-            <div class="speaker-icon-container" @click="playInstruction">
+            <!-- <div class="speaker-icon-container" @click="playInstruction">
                 <PhSpeakerHigh :size="20" weight="fill" color="#fff"/>
-            </div>
-
+            </div> -->
+<!-- 
             <div class="hand-pointer-component-container" v-if="!hasInstructionPlayed">
                 <HandPointer :handPulsating="true" />
-            </div>
+            </div> -->
         </div>
         <p class="exercise-description-text">Place the butterfly into the yellow frame</p>
     </div>

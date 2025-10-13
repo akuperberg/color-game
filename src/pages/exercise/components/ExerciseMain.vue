@@ -2,53 +2,37 @@
     import { ref } from 'vue'
     import ExerciseDescription from './ExerciseDescription.vue'
     import ExerciseContent from './ExerciseContent.vue'
-    import Button from './Button.vue'
+    import Button from '@/shared/components/Button.vue'
 
-    const instructionHasPlayed = ref(false)
+    // const instructionHasPlayed = ref(false)
     const selectedFrame = ref<string | null>(null)
-    const evaluationResult = ref<boolean | null>(null)
+    const visibleButton = ref<boolean>(false)
 
-    const onInstructionPlayed = (): void => {
-        instructionHasPlayed.value = true
+    // const onInstructionPlayed = (): void => {
+    //     instructionHasPlayed.value = true
+    // }
+
+    const showButton = (): void => {
+        visibleButton.value = true
     }
 
-    const onCharacterDropped = (frameColor: string): void => {
-        selectedFrame.value = frameColor
-    }
-
-    const onCharacterReset = (): void => {
-        selectedFrame.value = null
-    }
-
-    const onEvaluationResult = (success: boolean): void => {
-        evaluationResult.value = success
-        
-        setTimeout(() => {
-            evaluationResult.value = null
-        }, 1000)
-    }
 </script>
 
 <template>
     <div class="main-container">
         <div class="exercise-container">
-        <ExerciseDescription @instructionPlayed="onInstructionPlayed" />
+        <ExerciseDescription />
         <div 
             class="exercise-content-wrapper show"
         >
-            <ExerciseContent 
-                :evaluationResult="evaluationResult"
-                @characterDropped="onCharacterDropped" 
-                @characterReset="onCharacterReset"
-            />
+            <ExerciseContent @frameSelected="showButton()" />
         </div>
         <div 
             class="button-wrapper"
-            :class="{ 'show': selectedFrame }"
+            :class="{ 'show': visibleButton }"
         >
             <Button 
                 :frameColor="selectedFrame ?? ''" 
-                @evaluationResult="onEvaluationResult"
             />
         </div>
     </div>
