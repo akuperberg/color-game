@@ -3,6 +3,7 @@
     import { ref, nextTick, type VNodeRef } from 'vue'
     import { FrameColor } from '@/shared/enums/enums'
     import { frameColorService } from '@/shared/services/FrameColorService'
+    import butterflyImage from '@/assets/images/butterfly.png'
 
     interface Props {
         evaluationResult?: boolean | null
@@ -51,7 +52,7 @@
         <div>
             <img
                 v-if="!showFloatingCharacter"
-                src="../assets/images/butterfly.png" 
+                :src="butterflyImage" 
                 alt="character" 
                 class="character character-original"
             />
@@ -68,7 +69,7 @@
 
             <img
                 v-if="showFloatingCharacter"
-                src="../assets/images/butterfly.png"
+                :src="butterflyImage"
                 alt="character"
                 class="character character-floating"
                 :style="{ left: `${floatingLeft}px`, top: `${floatingTop}px` }"
@@ -78,7 +79,7 @@
 </template>
 
 <style scoped lang="scss">
-    @use '../styles/variables' as *;
+    @use '../../../styles/variables' as *;
 
     .exercise-content-container {
         display: flex;

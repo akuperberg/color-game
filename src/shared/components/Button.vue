@@ -2,7 +2,7 @@
     import { onMounted, onUnmounted } from 'vue'
     import { Howl } from 'howler'
     import HandPointer from './HandPointer.vue'
-    import { frameColorService } from '../shared/services/FrameColorService'
+    import { frameColorService } from '../../shared/services/FrameColorService'
     // import { SoundPaths } from '@/shared/enums/enums'
 
     const emit = defineEmits<{
@@ -81,7 +81,7 @@
 </template>
 
 <style scoped lang="scss">
-    @use '../styles/variables' as *;
+    @use '../../styles/variables' as *;
 
     .wrapper {
         position: relative;

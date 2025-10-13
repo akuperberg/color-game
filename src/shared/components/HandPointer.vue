@@ -1,7 +1,7 @@
 <script setup lang="ts">
   import { ref, onMounted, onUnmounted, watch } from 'vue'
   import { PhHandPointing } from '@phosphor-icons/vue'
-  import { AnimationTimings } from '../shared/enums/enums'
+  import { AnimationTimings } from '../../shared/enums/enums'
 
   interface Props {
     handPulsating?: boolean
