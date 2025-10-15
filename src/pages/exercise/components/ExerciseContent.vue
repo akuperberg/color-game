@@ -91,6 +91,10 @@
         .character {
             max-width: 150px;
             height: auto;
+
+            @media (max-width: 768px) {
+                max-width: 90px;
+            }
         }
 
         .character-original {
@@ -102,14 +106,23 @@
             user-select: none;
             -webkit-user-select: none;
             -webkit-touch-callout: none;
+
+            @media (max-width: 768px) {
+               left: 40px;
+            }
         }
 
         .frames-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 20px;
             position: relative;
             z-index: 2;
             flex-wrap: wrap;
+
+            @media (max-width: 768px) {
+                grid-template-columns: repeat(1, 1fr);
+            }
         }
         
         .character-floating {

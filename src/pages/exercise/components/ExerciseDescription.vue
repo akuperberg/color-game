@@ -88,6 +88,7 @@
         justify-content: center;
         gap: 20px;
         margin-bottom: 50px;
+        padding: 0 10px;
     }
 
     .icon-animation {

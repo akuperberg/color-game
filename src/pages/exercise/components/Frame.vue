@@ -38,6 +38,11 @@
         position: relative;
         cursor: pointer;
 
+        @media (max-width: 768px) {
+            max-width: 150px;
+            height: 150px;
+        }
+
         &:hover {
             transform: scale(1.05);
             box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);

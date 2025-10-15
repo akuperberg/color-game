@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Main from '../pages/exercise/components/ExerciseMain.vue'
+import ExerciseMain from '../pages/exercise/components/ExerciseMain.vue'
+import AdminMain from '../pages/admin/components/AdminMain.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -7,7 +8,12 @@ const router = createRouter({
     {
       path: '/exercise',
       name: 'exercise',
-      component: Main
+      component: ExerciseMain
+    },
+    {
+      path: '/administration',
+      name: 'administration',
+      component: AdminMain
     },
     {
       path: '/',
